@@ -1,0 +1,41 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+	<div class="container" style="padding-top:70px;">
+		<div class="row">
+			<div class="col-md-8 col-sm-8 col-xs-12">
+				<div class="panel panel-primary">
+				  <div class="panel-heading">Shopping Address</div>
+				  <div class="panel-body">
+						<form action="{% url 'shop:checkout' %}" method="post" enctype="multipart/form-data">
+		          {% csrf_token %}
+		            {% for field in form %}
+		            <div class="form-group">
+		              <input type="text" class="form-control" name="{{field.html_name}}" placeholder="{{field.label}}">
+		            </div>
+		            {% endfor %}
+		          <button type="submit" class="btn btn-success" style="width:100%;">Proceed</button>
+		        </form>
+				  </div>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4 col-xs-12">
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+						<span class="pull-right"><a href="{% url 'shop:cart' %}">Edit List</a></span>
+						Review Order
+					</div>
+				  <div class="panel-body">
+						{% for buy in buyItems %}
+						{% if buy.is_purchased == True and buy.user == user %}
+				    <h4>{{ buy.product.p_name }}</h4>
+						<h5>Rs. {% widthratio buy.quantity 1 buy.product.p_cost %}</h5>
+						<hr>
+						{% endif %}
+						{% endfor %}
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

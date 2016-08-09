@@ -1,0 +1,64 @@
+{% extends 'shop/base.html' %}
+{% block body %}
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    {% for corproduct in corproducts %}
+    <div class="item {% if forloop.counter0 == 0 %}active{% endif %}">
+      {% load staticfiles %}
+      <img src="{% static 'shop/new.jpg'%}" alt="img">
+      <div class="carousel-caption">
+        <h1><a href="{% url 'shop:detail' corproduct.id %}">{{ corproduct.p_name }}</a></h1>
+        <h4>available in our stores only in Rs. {{ corproduct.p_cost }}</h4>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<!-- <h2>Welcome {{user.username}}</h2>
+
+<h3>Here are some products we offer.</h3> -->
+
+<div class="container">
+<hr class="divider">
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-sm-6 col-md-3 col-sm-12">
+    <div class="thumbnail">
+      <img src="{{ product.p_photo.url }}" alt="img" width="100%" >
+      <div class="caption">
+        <h3>{{ product.p_name }}</h3>
+        <p>Rs. {{ product.p_cost }}\-</p>
+        <p><a href="{% url 'shop:detail' product.id %}" method="post" class="btn btn-primary" role="button" onclick="alert('This costs {{product.p_cost}}')">Details</a>
+            <a href="{% url 'shop:addToCart' product.id %}" class="btn btn-success">Add to Cart</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<hr class="divider">
+</div>
+<!-- <a href="{% url 'shop:logout' %}">Logout</a> -->
+
+{% endblock %}

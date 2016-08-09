@@ -1,0 +1,32 @@
+{% extends 'shop/base.html' %}
+{% block body %}
+{% if error_message %}
+  <p>
+    <strong>{{ error_message }}</strong>
+  </p>
+{% endif %}
+
+<div class="row" style="padding-top:40px;">
+  <div class="col-md-6 col-md-offset-3 col-sm-6 col-xs-12">
+    <h1 id="heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sharma Jewellers</h1>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3>Please Register</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{% url 'shop:register' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+              <input type="{{field.html_name}}" class="form-control" name="{{field.html_name}}" placeholder="{{field.label}}">
+            </div>
+            {% endfor %}
+          <button type="submit" class="btn btn-success" style="width:100%;">Register</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

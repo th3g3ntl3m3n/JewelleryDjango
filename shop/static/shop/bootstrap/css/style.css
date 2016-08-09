@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'blessed'; /*a name to be used later*/
+    src: url('Blesd.ttf'); /*URL to font*/
+}
+
+body {
+  /*background-image: url('../images/pbag.jpg');*/
+  background: #1e1e1e;
+  background-repeat: space;
+  background-size: cover;
+}
+
+.navbar-brand {
+  font-family: blessed;
+  font-size: 40px;
+}
+
+h1[id=heading] {
+  font-family: blessed;
+  font-size: 100px;
+  color: gold;
+}
+span[id=lione] {
+  color : gold;
+  font-weight: bold;
+
+}
+
+.panel {
+  opacity: 0.9;
+}
+
+img {
+  width: 100%;
+}
+
+img[id=myimg] {
+  width: 30%;
+}
+
+.navbar {
+  opacity: 0.7;
+}
+
+.nav.navbar-center {
+    margin-left: 55%;
+    text-align: center;
+}
+
+.navbar-inner{
+    text-align:center;
+}

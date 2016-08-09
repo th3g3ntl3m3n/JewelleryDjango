@@ -1,0 +1,66 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+<div class="container" style="padding-top:70px;">
+  <div class="row">
+    <div class="col-md-3 col-sm-3 col-xs-12">
+      <p class="lead" style="color:gold;">Category</p>
+      <div class="list-group">
+        {% for ctg in ctgs %}
+        <a href="#" class="list-group-item
+          {% if ctg.c_name == product.category.c_name %}
+            active
+          {% endif %}">
+          {{ ctg.c_name }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="thumbnail">
+        <img src="{{product.p_photo.url}}" alt="img" id="myimg">
+        <div class="caption">
+          <h3 class="pull-right">Rs. {{ product.p_cost }}</h3>
+          <h3>{{ product.p_name }}</h3>
+          <p>{{ product.p_detail}}</p>
+          <a href="{% url 'shop:addToCart' product.id %}" class="btn btn-success">Buy Now</a>
+        </div>
+      </div>
+
+      <div class="well">
+        <p class="text-right"><a href="#collapseExample" class="btn btn-success" data-toggle="collapse" aria-expended="false" aria-controls="collapseEx">Leave a Review</a></p>
+        <div class="collapse" id="collapseExample">
+          <form action="{% url 'shop:saveReview' product.id %}" method="post">
+            {% csrf_token %}
+            <textarea class="form-control" name = "review" rows="3"></textarea>
+            <div class="form-inline" style="margin-top:15px;">
+            <div class="form-group">
+            <input class="form-control" type="text" name="rating" placeholder="Rating"></input>
+            <button class="btn btn-success text-right">Submit</button>
+          </div>
+          </div>
+          </form>
+        </div>
+        {% for rev in revpr %}
+        <div class="row">
+          <div class="col-md-12">
+            {% if rev.product.p_name == product.p_name %}
+              <h4>{{rev.user.username}}</h4>
+              {% with ''|center:rev.rating as range %}
+              {% for _ in range %}
+               <span class="glyphicon glyphicon-star"></span>
+              {% endfor %}
+              {% endwith %}
+              <p>{{rev.review}}</p>
+              <hr>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

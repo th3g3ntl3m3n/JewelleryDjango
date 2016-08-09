@@ -1,0 +1,58 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+
+<div class="container" style="padding-top:70px;">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <div class="row">
+              <div class="col-md-6">
+                <h4><span class="glyphicon glyphicon-shopping-cart"></span> Cart</h4>
+              </div>
+              <div class="col-md-6">
+                <a href="{% url 'shop:home' %}" class="btn btn-primary pull-right">Continue Shopping</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          {% for item in buyList %}
+            {% if item.user.username == user.username %}
+            <div class="row">
+              <div class="col-md-2 col-sm-12">
+                <img src="{{ item.product.p_photo.url }}" alt="photo" width="20%"/>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <h3><strong>{{ item.product.p_name }}</strong></h3>
+                <!-- <h4><small>{{ item.product.p_detail }}</small></h4> -->
+                <h4>Price : <strong>{% widthratio item.quantity 1 item.product.p_cost %}</strong></h4>
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    Quantity
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    {% for i in '12345' %}
+                      <li><a href="{% url 'shop:qty' i item.id %}">{{ i }}</a></li>
+                    {% endfor %}
+                  </ul>
+                  <a href="{% url 'shop:remove' item.id %}" class="btn btn-danger">Remove</a>
+                </div>
+              </div>
+            </div>
+          <hr>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="panel-footer">
+          <a href="{% url 'shop:checkout' %}" class="btn btn-success pull-right">Checkout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
